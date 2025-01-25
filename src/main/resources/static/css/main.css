@@ -1,0 +1,76 @@
+/* 전체 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+/* 헤더 스타일 */
+.header {
+    background-color: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between; /* 로고와 버튼을 양쪽 끝으로 배치 */
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 로그인/회원가입 링크 텍스트 스타일 */
+.util_box {
+    display: flex; /* 가로 정렬 */
+    gap: 20px; /* 링크 간의 간격 설정 (20px) */
+}
+
+.util_box a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: #333; /* 기본 텍스트 색상 */
+    font-size: 16px; /* 글자 크기 */
+    font-weight: normal; /* 기본 텍스트 두께 */
+}
+
+
+
+/* 테이블 스타일 */
+.content-table {
+    width: 95%;
+    margin: 20px auto; /* 중앙 정렬 */
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.content-table thead th {
+    font-size: 13px;
+    padding: 16px 0 17px;
+    border-top: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    color: #555;
+    vertical-align: middle;
+    font-weight: normal;
+    background: #fff;
+}
+
+.content-table tr:hover {
+    background-color: #f9f9f9; /* 행에 마우스 올릴 때 배경색 변경 */
+}
+
+/* 특정 열 너비 조정 */
+.content-table th:nth-child(1), .content-table td:nth-child(1) {
+    width: 10%; /* 번호 */
+}
+
+.content-table th:nth-child(3), .content-table td:nth-child(3),
+.content-table th:nth-child(4), .content-table td:nth-child(4) {
+    width: 15%; /* 작성자와 작성일 */
+}
+
+.content-table th:nth-child(2), .content-table td:nth-child(2) {
+    width: auto; /* 제목 */
+}
