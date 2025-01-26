@@ -16,8 +16,8 @@
 			<a href="/">Chang's Board</a>
 		</h1>
 		<div class="util_box">
-			<a href="/login" class="main-btn">로그인</a> <a href="/register"
-				class="main-btn">회원가입</a>
+			<a href="/login" class="main-btn">로그인</a> 
+			<a href="/register" class="main-btn">회원가입</a>
 		</div>
 	</div>
 
