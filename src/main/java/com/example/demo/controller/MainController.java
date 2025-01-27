@@ -11,6 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MainController {
 	@GetMapping("/")
 	public String homePage() {
-		return "/main";
+		return "main";
 	}
 }
