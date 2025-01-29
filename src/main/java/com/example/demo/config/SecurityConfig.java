@@ -22,7 +22,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> 
                 authorize
                     .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // FORWARD 요청 허용
-                    .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**").permitAll() // 인증 없이 접근 가능한 경로
+                    .requestMatchers("/", "/login", "/register", "/css/**", "/js/**", "/images/**", "/api/validateEmail").permitAll() // 인증 없이 접근 가능한 경로
                     .anyRequest().authenticated() // 나머지 요청은 인증 필요
             )
             .formLogin(form -> form

@@ -23,5 +23,9 @@ public class MemberService {
                 .memberPasswd(bCryptPasswordEncoder.encode(dto.getMemberPasswd())) // 암호화된 비밀번호
                 .build()).getMemberNo(); // 저장된 사용자의 기본 키 반환
     }
+    public boolean isEmailExist(String email) {
+        return memberRepository.findByMemberEmail(email).isPresent();
+    }
+
 }
 
