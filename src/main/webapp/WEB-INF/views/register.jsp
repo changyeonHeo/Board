@@ -13,18 +13,18 @@
         <h1 class="register-title">회원가입</h1>
         <form action="/register" method="post" id="registration-form">
             <div class="input-group">
-                <label for="username">아이디</label>
-                <input type="text" id="username" name="memberId" placeholder="아이디를 입력하세요" required>
+                <label for="memberId">아이디</label>
+                <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요" required>
                 <div class="message"></div>
             </div>
             <div class="input-group">
-                <label for="name">이름</label>
-                <input type="text" id="name" name="memberName" placeholder="이름을 입력하세요" required>
+                <label for="memberName">이름</label>
+                <input type="text" id="memberName" name="memberName" placeholder="이름을 입력하세요" required>
                 <div class="name-message"></div>
             </div>
             <div class="input-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="password" name="memberPasswd" placeholder="비밀번호를 입력하세요" required>
+                <label for="memberPasswd">비밀번호</label>
+                <input type="password" id="memberPasswd" name="memberPasswd" placeholder="비밀번호를 입력하세요" required>
                 <div class="password-message"></div>
             </div>
             <div class="input-group">
@@ -33,16 +33,16 @@
                 <div class="confirm-password-message"></div>
             </div>
             <div class="input-group">
-                <label for="email">이메일</label>
-                <input type="email" id="email" name="memberEmail" placeholder="이메일 주소를 입력하세요" required>
+                <label for="memberEmail">이메일</label>
+                <input type="email" id="memberEmail" name="memberEmail" placeholder="이메일 주소를 입력하세요" required>
                 <div class="email-message"></div>
             </div>
             <div class="input-group">
-                <label for="phone">전화번호</label>
-                <input type="tel" id="phone" name="memberTel" placeholder="전화번호를 입력하세요" required>
+                <label for="memberTel">전화번호</label>
+                <input type="tel" id="memberTel" name="memberTel" placeholder="전화번호를 입력하세요" required>
                 <div class="phone-message"></div>
             </div>
-            <button type="submit" class="btn register-btn">회원가입</button>
+            <button type="submit" class="btn register-btn" id="register-btn" disabled>회원가입</button>
         </form>
     </div>
 </body>

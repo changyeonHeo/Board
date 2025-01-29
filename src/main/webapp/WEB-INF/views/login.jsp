@@ -10,7 +10,7 @@
 <body>
     <div class="login-container">
         <h1 class="login-title">로그인</h1>
-        <form action="/login" method="post">
+        <form action="/doLogin" method="post">
             <div class="input-group">
                 <label for="memberId">아이디</label>
                 <input type="text" id="memberId" name="memberId" placeholder="아이디를 입력하세요">
