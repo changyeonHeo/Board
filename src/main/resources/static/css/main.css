@@ -16,6 +16,7 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
+/* 로고 스타일 */
 .logo a {
     text-decoration: none;
     font-size: 24px;
@@ -23,20 +24,29 @@ body {
     color: #333;
 }
 
-/* 로그인/회원가입 링크 텍스트 스타일 */
+/* 로그인/회원가입/로그아웃 스타일 (높낮이 맞춤) */
 .util_box {
     display: flex; /* 가로 정렬 */
-    gap: 20px; /* 링크 간의 간격 설정 (20px) */
+    align-items: center; /* 요소 높이를 맞춤 */
+    gap: 20px; /* 버튼 간 간격 */
 }
 
+/* 로그인된 사용자 문구 스타일 */
+.util_box p {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center; /* 버튼과 같은 높이로 맞춤 */
+}
+
+/* 링크 스타일 (로그인, 회원가입, 로그아웃) */
 .util_box a {
-    text-decoration: none; /* 밑줄 제거 */
+    text-decoration: none;
     color: #333; /* 기본 텍스트 색상 */
-    font-size: 16px; /* 글자 크기 */
+    font-size: 16px;
     font-weight: normal; /* 기본 텍스트 두께 */
 }
-
-
 
 /* 테이블 스타일 */
 .content-table {
