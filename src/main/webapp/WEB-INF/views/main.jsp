@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <title>Chang's Board</title>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/board.css">
 </head>
 <body>
     <!-- 헤더 -->
@@ -40,5 +41,8 @@
         <tbody>
         </tbody>
     </table>
+    <div class="write-button">
+    	<a href="/board/write">글쓰기</a>
+	</div>
 </body>
 </html>

@@ -1,0 +1,112 @@
+/* 공통 스타일 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* 글쓰기 페이지 스타일 */
+.write-page-container {
+    width: 100%;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 100vh; /* 화면 대부분 차지 */
+    box-sizing: border-box; /* 패딩 포함 박스 모델 */
+}
+
+/* 페이지 제목 스타일 */
+.page-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* 폼 스타일 */
+.write-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+textarea {
+    height: 400px; /* 글쓰기 칸 높이 고정 */
+    resize: none; /* 크기 조정 비활성화 */
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* 버튼 그룹 컨테이너 */
+.button-group {
+    position: absolute; /* 페이지 내 위치 고정 */
+    bottom: 20px; /* 아래로부터 20px */
+    right: 20px; /* 오른쪽으로부터 20px */
+    display: flex; /* 버튼 나란히 배치 */
+    gap: 10px; /* 버튼 간격 */
+}
+
+/* 버튼 그룹 컨테이너 */
+.button-group {
+    position: absolute; /* 페이지 내 위치 고정 */
+    bottom: 20px; /* 아래로부터 20px */
+    right: 20px; /* 오른쪽으로부터 20px */
+    display: flex; /* 버튼 나란히 배치 */
+    gap: 10px; /* 버튼 간격 */
+}
+
+/* 등록 버튼 */
+.save-btn {
+    width: 150px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-size: 15px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 두께 */
+    color: #000; /* 텍스트 색상 */
+    background-color: #e0e0e0; /* 배경색을 회색으로 고정 */
+    border: 1px solid #f1f1f1; /* 테두리 */
+    line-height: 48px; /* 텍스트 세로 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    cursor: pointer; /* 클릭 가능 포인터 */
+    transition: none; /* 마우스 오버 시 효과 없음 */
+}
+
+
+/* 취소 버튼 */
+.cancel-btn {
+    width: 150px; /* 버튼 너비 */
+    height: 50px; /* 버튼 높이 */
+    font-size: 15px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 두께 */
+    color: #666; /* 텍스트 색상 */
+    background-color: #fff; /* 배경색 */
+    border: 1px solid #f1f1f1; /* 테두리 */
+    line-height: 48px; /* 텍스트 세로 정렬 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    cursor: pointer; /* 클릭 가능 포인터 */
+    transition: none; /* 마우스 오버 시 효과 없음 */
+}
+
+
+
+
+
+
+
