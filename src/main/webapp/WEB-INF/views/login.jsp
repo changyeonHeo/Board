@@ -39,7 +39,7 @@
         <div class="options">
             <a href="/register" class="btn signup-btn">회원가입</a>
             <div class="kakao-login">
-                <a href="/kakao-login" class="btn kakao-btn">카카오 로그인</a>
+                <a href="/oauth2/authorization/kakao" class="btn kakao-btn">카카오 로그인</a>
             </div>
         </div>
     </div>

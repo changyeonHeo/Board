@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+import com.example.demo.service.CustomOAuth2UserService;
+
 import jakarta.servlet.DispatcherType;
 
 @Configuration
@@ -36,6 +39,10 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/", true) // ✅ 로그인 성공 후 메인 페이지로 이동
                 .permitAll()
             )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login") // ✅ 카카오 로그인도 기존 로그인 페이지로 이동
+                .defaultSuccessUrl("/", true) // ✅ 로그인 성공 후 메인 페이지로 이동
+            )
             .logout(logout -> logout
                 .logoutUrl("/logout") // 로그아웃 URL
                 .logoutSuccessUrl("/") // ✅ 로그아웃 성공 후 메인 페이지로 이동
@@ -53,5 +60,9 @@ public class SecurityConfig {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder(); // 비밀번호 암호화 설정
+    }
+    @Bean
+    public CustomOAuth2UserService customOAuth2UserService() {
+        return new CustomOAuth2UserService();
     }
 }
