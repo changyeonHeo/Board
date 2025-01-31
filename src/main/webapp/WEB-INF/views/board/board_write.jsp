@@ -31,26 +31,5 @@
             </div>
         </form>
     </div>
-
-    <script>
-        $(document).ready(function () {
-            // Summernote 초기화
-            $('#content').summernote({
-                height: 300,
-                lang: 'ko-KR',
-                placeholder: '내용을 입력하세요',
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
-                    ['font', ['strikethrough', 'superscript', 'subscript']],
-                    ['fontsize', ['fontsize']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['table', ['table']],
-                    ['insert', ['link', 'picture', 'video']],
-                    ['view', ['fullscreen', 'codeview', 'help']],
-                ],
-            });
-        });
-    </script>
 </body>
 </html>

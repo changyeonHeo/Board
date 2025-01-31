@@ -76,25 +76,34 @@ public class BoardController {
     public String boardDetail(@PathVariable Long id, Model model) {
         BoardEntity board = boardService.getBoardById(id);
         model.addAttribute("board", board);
-        return "board/board_detail"; // 게시글 상세보기 JSP로 이동
+        return "board/board_content"; // 게시글 상세보기 JSP로 이동
     }
 
-    // ✅ 이미지 업로드 API (서머노트 이미지 업로드 처리)
     @PostMapping("/api/uploadImage")
     @ResponseBody
     public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) {
         Map<String, String> response = new HashMap<>();
         try {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            String filePath = "uploads/" + fileName;
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // 파일명 고유하게 설정
+            String uploadDir = "uploads/"; // 업로드 폴더 경로
+            String filePath = uploadDir + fileName;
 
+            // 디렉토리 생성
+            File directory = new File(uploadDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // 파일 저장
             File destination = new File(filePath);
             file.transferTo(destination);
 
-            response.put("imageUrl", "/" + filePath); // 클라이언트가 접근할 수 있도록 URL 반환
+            // 클라이언트에 반환할 이미지 URL 설정
+            response.put("url", "/" + filePath);
         } catch (IOException e) {
-            response.put("error", "파일 업로드 실패");
+            response.put("error", "이미지 업로드 실패");
         }
         return response;
     }
+    
 }

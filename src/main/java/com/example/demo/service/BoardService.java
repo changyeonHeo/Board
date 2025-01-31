@@ -25,7 +25,7 @@ public class BoardService {
     }
 
     public List<BoardEntity> getAllBoards() {
-        return boardRepository.findAll();
+    	return boardRepository.findAllByOrderByBnumDesc();
     }
 
     public BoardEntity getBoardById(Long id) {
