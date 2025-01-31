@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor  // 기본 생성자 추가
-@AllArgsConstructor // 모든 필드를 포함한 생성자 추가
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Table(name = "board")
 public class BoardEntity {
@@ -17,24 +18,34 @@ public class BoardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq")
     @SequenceGenerator(name = "board_seq", sequenceName = "board_seq", allocationSize = 1)
-    private Long bnum; // 게시글 번호 (Primary Key)
+    private Long bnum;
 
     @Column(nullable = false)
-    private String title; // 제목
+    private String title;
 
     @Column(nullable = false, length = 5000)
-    private String content; // 내용
+    private String content;
 
     @Column(nullable = false)
-    private String writer; // 작성자
+    private String writer;
 
-    @Column(nullable = false)
-    private LocalDateTime date; // 작성 날짜
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdDate;
 
     @Column
     private String bimage; // 이미지 경로
 
-    // @Builder.Default를 사용해 기본값 설정 (Builder 사용 시 자동 적용)
-    @Builder.Default
-    private LocalDateTime createdDate = LocalDateTime.now();
+    @Transient
+    private Date formattedDate; // JSP에서 사용하기 위한 변환된 날짜
+
+    // ✅ @Builder 사용 시 모든 필드에 대해 초기화 생성자 필요
+    @Builder
+    public BoardEntity(Long bnum, String title, String content, String writer, LocalDateTime createdDate, String bimage) {
+        this.bnum = bnum;
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.createdDate = (createdDate != null) ? createdDate : LocalDateTime.now();
+        this.bimage = bimage;
+    }
 }

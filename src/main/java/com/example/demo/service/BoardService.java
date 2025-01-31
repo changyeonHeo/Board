@@ -4,10 +4,8 @@ import com.example.demo.domain.BoardEntity;
 import com.example.demo.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -15,27 +13,23 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public void saveBoard(String title, String content, String writer, MultipartFile file) throws IOException {
-        BoardEntity board = new BoardEntity();
-        board.setTitle(title);
-        board.setContent(content);
-        board.setWriter(writer);
+    public void saveBoard(String title, String content, String writer, String bimage) {
+        BoardEntity board = BoardEntity.builder()
+                .title(title)
+                .content(content)
+                .writer(writer)
+                .bimage(bimage) // ✅ bimage 추가 가능해짐
+                .build();
 
-        // 이미지 파일 처리
-        if (file != null && !file.isEmpty()) {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // 고유 파일명 생성
-            String filePath = "uploads/" + fileName; // 파일 저장 경로
-            File destination = new File(filePath);
+        boardRepository.save(board);
+    }
 
-            // 디렉토리 생성
-            if (!destination.getParentFile().exists()) {
-                destination.getParentFile().mkdirs();
-            }
+    public List<BoardEntity> getAllBoards() {
+        return boardRepository.findAll();
+    }
 
-            file.transferTo(destination); // 파일 저장
-            board.setBimage(filePath); // DB에 저장될 경로 설정
-        }
-
-        boardRepository.save(board); // DB 저장
+    public BoardEntity getBoardById(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
     }
 }

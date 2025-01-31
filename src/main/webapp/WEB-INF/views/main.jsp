@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<!DOCTYPE html>
+<!-- main.jsp -->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -29,6 +30,7 @@
         </div>
     </div>
 
+    <!-- 게시글 목록 -->
     <table class="content-table">
         <thead>
             <tr>
@@ -39,10 +41,24 @@
             </tr>
         </thead>
         <tbody>
+            <c:forEach var="board" items="${boards}">
+                <tr>
+                    <td>${board.bnum}</td>
+                    <td>
+                        <a href="/board/${board.bnum}" class="board-title">${board.title}</a>
+                    </td>
+                    <td>${board.writer}</td>
+                    <td>
+                        <fmt:formatDate value="${board.formattedDate}" pattern="yyyy-MM-dd HH:mm"/>
+                    </td>
+                </tr>
+            </c:forEach>
         </tbody>
     </table>
+
+    <!-- 글쓰기 버튼 -->
     <div class="write-button">
-    	<a href="/board/write">글쓰기</a>
-	</div>
+        <a href="/board/write">글쓰기</a>
+    </div>
 </body>
 </html>

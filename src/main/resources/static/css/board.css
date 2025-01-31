@@ -104,6 +104,28 @@ input[type="text"], textarea {
     transition: none; /* 마우스 오버 시 효과 없음 */
 }
 
+/* 글쓰기 버튼 스타일 */
+.write-button {
+    position: fixed; /* 화면 고정 */
+    bottom: 20px; /* 화면 아래로부터 20px */
+    right: 20px; /* 화면 오른쪽으로부터 20px */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.write-button a {
+    display: flex; /* 중앙 정렬을 위한 플렉스 컨테이너 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    width: 210px; /* 버튼 너비 */
+    height: 70px; /* 버튼 높이 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    background-color: white; /* 배경색 */
+    color: #333; /* 텍스트 색상 */
+    font-size: 20px; /* 텍스트 크기 */
+    font-weight: bold; /* 텍스트 두께 */
+    text-decoration: none; /* 밑줄 제거 */
+    transition: all 0.3s ease; /* 효과 전환 */
+}
 
 
 

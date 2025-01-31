@@ -8,5 +8,5 @@ import lombok.Setter;
 public class BoardRequest {
     private String title;
     private String content;
-    private String bimage; // 이미지 경로 또는 파일명
+    private String bimage; // ✅ 이미지 URL 추가
 }
