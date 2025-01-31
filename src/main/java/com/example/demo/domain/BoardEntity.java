@@ -17,7 +17,7 @@ public class BoardEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_seq")
-    @SequenceGenerator(name = "board_seq", sequenceName = "board_seq", allocationSize = 1)
+    @SequenceGenerator(name = "board_seq", sequenceName = "board_seq", allocationSize = 1, initialValue = 1)
     private Long bnum;
 
     @Column(nullable = false)

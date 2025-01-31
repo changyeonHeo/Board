@@ -1,9 +1,10 @@
-/* 전체 스타일 */
+/* ===================== ✅ 공통 스타일 ===================== */
 body {
-    font-family: Arial, sans-serif;
+    font: 0.8125em 'Pretendard', Verdana, Dotum, AppleGothic, sans-serif;
+    color: #242927;
+    background: #fff;
     margin: 0;
     padding: 0;
-    background-color: #fff;
 }
 
 /* 헤더 스타일 */
@@ -11,9 +12,9 @@ body {
     background-color: white;
     padding: 20px 40px;
     display: flex;
-    justify-content: space-between; /* 로고와 버튼을 양쪽 끝으로 배치 */
+    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d1d1d1;
 }
 
 /* 로고 스타일 */
@@ -21,66 +22,119 @@ body {
     text-decoration: none;
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #353535;
 }
 
-/* 로그인/회원가입/로그아웃 스타일 (높낮이 맞춤) */
+/* 로그인/회원가입/로그아웃 스타일 */
 .util_box {
-    display: flex; /* 가로 정렬 */
-    align-items: center; /* 요소 높이를 맞춤 */
-    gap: 20px; /* 버튼 간 간격 */
-}
-
-/* 로그인된 사용자 문구 스타일 */
-.util_box p {
-    margin: 0; /* 기본 마진 제거 */
-    font-size: 16px;
-    color: #333;
     display: flex;
-    align-items: center; /* 버튼과 같은 높이로 맞춤 */
+    align-items: center;
+    gap: 20px;
 }
 
-/* 링크 스타일 (로그인, 회원가입, 로그아웃) */
+.util_box p {
+    margin: 0;
+    font-size: 16px;
+    color: #242927;
+    display: flex;
+    align-items: center;
+}
+
 .util_box a {
     text-decoration: none;
-    color: #333; /* 기본 텍스트 색상 */
+    color: #555;
     font-size: 16px;
-    font-weight: normal; /* 기본 텍스트 두께 */
+    font-weight: normal;
 }
 
-/* 테이블 스타일 */
-.content-table {
-    width: 95%;
-    margin: 20px auto; /* 중앙 정렬 */
+/* ===================== ✅ 게시글 목록 디자인 ===================== */
+.board-container {
+    margin: 30px auto;
+    background-color: #fff;
+    position: relative;
+}
+
+/* 테이블 기본 스타일 */
+.board-table {
+    width: 100%;
+    border: 1px solid #d1d1d1;
     border-collapse: collapse;
-    background-color: white;
+    font-size: 14px;
+    text-align: center;
 }
 
-.content-table thead th {
-    font-size: 13px;
-    padding: 16px 0 17px;
-    border-top: 1px solid #d1d1d1;
+/* 테이블 헤더 */
+.board-table thead th {
+    background-color: #fff;
+    font-weight: bold;
+    padding: 30px;
+    border-bottom: 1px solid #d1d1d1;
+}
+
+/* 테이블 내용 */
+.board-table tbody td {
+    padding: 60px 20px;
     border-bottom: 1px solid #d1d1d1;
     color: #555;
-    vertical-align: middle;
-    font-weight: normal;
-    background: #fff;
 }
 
-.content-table tr:hover {
-    background-color: #f9f9f9; /* 행에 마우스 올릴 때 배경색 변경 */
+/* 테이블 행 높이 맞추기 */
+.board-table tbody tr {
+    height: 50px;
+}
+
+/* 게시글 제목 */
+.board-title {
+    text-decoration: none;
+    font-weight: bold;
+    color: #242927;
+    display: block;
+    text-align: left;
+    padding-left: 250px;
+}
+
+/* 글 번호, 작성자, 작성일 컬럼 정렬 */
+.board-table .center {
+    text-align: center;
 }
 
 /* 특정 열 너비 조정 */
-.content-table th:nth-child(1), .content-table td:nth-child(1) {
-    width: 10%; /* 번호 */
+.board-table th:nth-child(1), 
+.board-table td:nth-child(1) {
+    width: 8%; /* 번호 */
 }
 
-.content-table th:nth-child(3), .content-table td:nth-child(3),
-.content-table th:nth-child(4), .content-table td:nth-child(4) {
+.board-table th:nth-child(3), 
+.board-table td:nth-child(3),
+.board-table th:nth-child(4), 
+.board-table td:nth-child(4) {
     width: 15%; /* 작성자와 작성일 */
 }
 
-.content-table th:nth-child(2), .content-table td:nth-child(2) {
+.board-table th:nth-child(2), 
+.board-table td:nth-child(2) {
     width: auto; /* 제목 */
+}
+
+/* ===================== ✅ 글쓰기 버튼 디자인 ===================== */
+.write-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.write-button a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 60px;
+    border: 1px solid #d1d1d1;
+    background-color: white;
+    color: #555;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
 }

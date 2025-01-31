@@ -31,7 +31,8 @@
     </div>
 
     <!-- 게시글 목록 -->
-    <table class="content-table">
+    <div class="board-container">
+        <table class="board-table">
         <thead>
             <tr>
                 <th>번호</th>
@@ -55,10 +56,11 @@
             </c:forEach>
         </tbody>
     </table>
-
+</div>
     <!-- 글쓰기 버튼 -->
     <div class="write-button">
         <a href="/board/write">글쓰기</a>
     </div>
+    
 </body>
 </html>
