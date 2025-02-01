@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,19 +27,19 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    // ✅ 게시글 목록 조회 (페이징 포함)
     @GetMapping("/")
-    public String boardList(Model model) {
-        List<BoardEntity> boards = boardService.getAllBoards();
+    public String boardList(Model model, 
+                            @RequestParam(defaultValue = "1") int page, 
+                            @RequestParam(defaultValue = "5") int size) {
+        if (page < 1) return "redirect:/?page=1"; // ✅ 최소값 보장
 
-        // ✅ LocalDateTime → java.util.Date 변환
-        List<BoardEntity> formattedBoards = boards.stream()
-                .map(board -> {
-                    board.setFormattedDate(Date.from(board.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant()));
-                    return board;
-                })
-                .collect(Collectors.toList());
+        Page<BoardEntity> boardPage = boardService.getBoardList(page, size);
+        model.addAttribute("boards", boardPage.getContent());
+        model.addAttribute("boardPage", boardPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", boardPage.getTotalPages());
 
-        model.addAttribute("boards", formattedBoards);
         return "main"; // 메인 페이지로 이동
     }
 
@@ -47,7 +48,7 @@ public class BoardController {
     public String writePage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
-        model.addAttribute("writer", currentUsername); // JSP에서 사용 가능하도록 전달
+        model.addAttribute("writer", currentUsername);
         return "board/board_write";
     }
 
@@ -65,39 +66,33 @@ public class BoardController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
 
-        // ✅ BoardService를 사용하여 저장
         boardService.saveBoard(request.getTitle(), request.getContent(), currentUsername, request.getBimage());
-
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    // ✅ 게시글 상세보기 페이지 이동
+    // ✅ 게시글 상세보기
     @GetMapping("/board/{id}")
     public String boardDetail(@PathVariable Long id, Model model) {
         BoardEntity board = boardService.getBoardById(id);
         model.addAttribute("board", board);
-        return "board/board_content"; // 게시글 상세보기 JSP로 이동
+        return "board/board_content";
     }
 
+    // ✅ 이미지 업로드
     @PostMapping("/api/uploadImage")
     @ResponseBody
     public Map<String, Object> uploadImage(@RequestParam("file") MultipartFile file) {
         Map<String, Object> response = new HashMap<>();
         try {
-            // 업로드 경로 설정
             String uploadDir = System.getProperty("user.dir") + "/uploads/";
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
             File uploadFile = new File(uploadDir + fileName);
 
-            // 업로드 폴더가 없으면 생성
             if (!uploadFile.getParentFile().exists()) {
                 uploadFile.getParentFile().mkdirs();
             }
 
-            // 파일 저장
             file.transferTo(uploadFile);
-
-            // 클라이언트에 이미지 URL 반환
             response.put("url", "/uploads/" + fileName);
             response.put("success", true);
         } catch (Exception e) {
@@ -107,8 +102,4 @@ public class BoardController {
         }
         return response;
     }
-
-
-
-    
 }

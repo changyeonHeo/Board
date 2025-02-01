@@ -116,13 +116,14 @@ body {
     width: auto; /* 제목 */
 }
 
-/* ===================== ✅ 글쓰기 버튼 디자인 ===================== */
+/* ✅ 글쓰기 버튼을 테이블 아래로 위치 */
 .write-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
+    margin-top: 20px; /* 테이블과의 간격 */
+    padding-right: 20px; /* 오른쪽 여백 */
 }
+
 
 .write-button a {
     display: flex;
@@ -138,3 +139,30 @@ body {
     text-decoration: none;
     text-align: center;
 }
+/* ✅ 페이징 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
