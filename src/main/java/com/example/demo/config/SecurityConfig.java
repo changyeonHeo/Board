@@ -21,7 +21,7 @@ public class SecurityConfig {
                 authorize
                     .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll() // FORWARD 요청 허용
                     .requestMatchers(
-                        "/css/**", "/js/**", "/images/**" // 정적 리소스는 누구나 접근 가능
+                        "/css/**", "/js/**", "/images/**","/uploads/**" // 정적 리소스는 누구나 접근 가능
                     ).permitAll()
                     .requestMatchers(
                         "/api/register", "/api/validateId", "/api/validateEmail", "/api/validatePhone" // ✅ AJAX 요청 허용

@@ -1,8 +1,6 @@
-// Summernote와 글쓰기 데이터 전송 처리
 $(document).ready(function () {
-    // ✅ Summernote 초기화
     $("#content").summernote({
-        height: 500, // 에디터 높이
+        height: 500,
         placeholder: "내용을 입력하세요",
         toolbar: [
             ["style", ["style"]],
@@ -14,16 +12,15 @@ $(document).ready(function () {
             ["insert", ["link", "picture", "video"]],
             ["view", ["fullscreen", "codeview", "help"]],
         ],
-        lang: "ko-KR", // 한국어 설정
-        disableResizeEditor: true, // 크기 조정 비활성화
-
-        // ✅ 이미지 업로드 처리 추가
+        lang: "ko-KR",
+        disableResizeEditor: true,
         callbacks: {
             onImageUpload: function (files) {
-                uploadImage(files[0]); // 첫 번째 파일만 업로드
-            }
-        }
+                uploadImage(files[0]);
+            },
+        },
     });
+});
 
     $(document).ready(function () {
     $("#board-form").on("submit", function (event) {
@@ -59,21 +56,22 @@ $(document).ready(function () {
 
     // ✅ 이미지 업로드 함수 (서버에 이미지 저장)
     function uploadImage(file) {
-        let formData = new FormData();
-        formData.append("file", file);
+    const formData = new FormData();
+    formData.append("file", file);
 
-        $.ajax({
-            url: "/api/uploadImage", // 이미지 업로드 API
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                $("#content").summernote("insertImage", response.imageUrl); // 업로드된 이미지 추가
-            },
-            error: function () {
-                alert("이미지 업로드 중 오류가 발생했습니다.");
-            }
-        });
-    }
-});
+    $.ajax({
+                    url: "/api/uploadImage", // 이미지 업로드 API 경로
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log("Uploaded Image URL:", data.url); // ✅ 서버 응답 확인
+                        $("#content").summernote("insertImage", data.url);
+                    },
+        error: function () {
+            alert("이미지 업로드 중 오류가 발생했습니다.");
+        },
+    });
+}
+

@@ -81,29 +81,34 @@ public class BoardController {
 
     @PostMapping("/api/uploadImage")
     @ResponseBody
-    public Map<String, String> uploadImage(@RequestParam("file") MultipartFile file) {
-        Map<String, String> response = new HashMap<>();
+    public Map<String, Object> uploadImage(@RequestParam("file") MultipartFile file) {
+        Map<String, Object> response = new HashMap<>();
         try {
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename(); // 파일명 고유하게 설정
-            String uploadDir = "uploads/"; // 업로드 폴더 경로
-            String filePath = uploadDir + fileName;
+            // 업로드 경로 설정
+            String uploadDir = System.getProperty("user.dir") + "/uploads/";
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            File uploadFile = new File(uploadDir + fileName);
 
-            // 디렉토리 생성
-            File directory = new File(uploadDir);
-            if (!directory.exists()) {
-                directory.mkdirs();
+            // 업로드 폴더가 없으면 생성
+            if (!uploadFile.getParentFile().exists()) {
+                uploadFile.getParentFile().mkdirs();
             }
 
             // 파일 저장
-            File destination = new File(filePath);
-            file.transferTo(destination);
+            file.transferTo(uploadFile);
 
-            // 클라이언트에 반환할 이미지 URL 설정
-            response.put("url", "/" + filePath);
-        } catch (IOException e) {
-            response.put("error", "이미지 업로드 실패");
+            // 클라이언트에 이미지 URL 반환
+            response.put("url", "/uploads/" + fileName);
+            response.put("success", true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("success", false);
+            response.put("message", "이미지 업로드 실패: " + e.getMessage());
         }
         return response;
     }
+
+
+
     
 }
