@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.*;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,15 +28,27 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // ✅ 게시글 목록 조회 (페이징 포함)
     @GetMapping("/")
     public String boardList(Model model, 
-                            @RequestParam(defaultValue = "1") int page, 
+                            @RequestParam(defaultValue = "1") int page,
                             @RequestParam(defaultValue = "5") int size) {
         if (page < 1) return "redirect:/?page=1"; // ✅ 최소값 보장
 
-        Page<BoardEntity> boardPage = boardService.getBoardList(page, size);
-        model.addAttribute("boards", boardPage.getContent());
+        // ✅ 페이징 설정
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "bnum"));
+        
+        // ✅ 페이징된 게시글 가져오기
+        Page<BoardEntity> boardPage = boardService.getBoardList(pageable);
+
+        // ✅ LocalDateTime → Date 변환
+        List<BoardEntity> formattedBoards = boardPage.getContent().stream()
+                .map(board -> {
+                    board.setFormattedDate(Date.from(board.getCreatedDate().atZone(ZoneId.systemDefault()).toInstant()));
+                    return board;
+                })
+                .collect(Collectors.toList());
+
+        model.addAttribute("boards", formattedBoards);
         model.addAttribute("boardPage", boardPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", boardPage.getTotalPages());
@@ -101,5 +114,33 @@ public class BoardController {
             response.put("message", "이미지 업로드 실패: " + e.getMessage());
         }
         return response;
+    }
+    
+ // ✅ 게시글 수정 페이지 이동
+    @GetMapping("/board/edit/{id}")
+    public String editBoardPage(@PathVariable Long id, Model model) {
+        BoardEntity board = boardService.getBoardById(id);
+        model.addAttribute("board", board);
+        return "board/board_write";
+    }
+
+ // ✅ 기존 글 수정 API (PUT 요청)
+    @PutMapping("/api/board/{bnum}")
+    @ResponseBody
+    public ResponseEntity<String> updateBoard(@PathVariable Long bnum, @RequestBody BoardRequest request) {
+        boardService.updateBoard(bnum, request.getTitle(), request.getContent());
+        return ResponseEntity.ok("글이 성공적으로 수정되었습니다.");
+    }
+
+
+    // ✅ 게시글 삭제 API (DELETE 요청)
+    @DeleteMapping("/api/board/{id}")
+    @ResponseBody
+    public ResponseEntity<String> deleteBoard(@PathVariable Long id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        boardService.deleteBoard(id, currentUsername);
+        return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 }

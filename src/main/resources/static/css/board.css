@@ -44,14 +44,16 @@ body {
     min-height: 300px;
 }
 
-/* ✅ 목록보기 버튼 */
-.list-button {
+/* ✅ 버튼 그룹 컨테이너 (목록, 수정, 삭제 버튼) */
+.button-group {
     display: flex;
-    justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
-    margin-top: 20px; /* 본문과 버튼 간격 */
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
 }
 
-.list-btn {
+/* ✅ 목록보기, 수정하기, 삭제하기 버튼 스타일 */
+.list-btn, .edit-btn, .delete-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -64,6 +66,7 @@ body {
     font-weight: bold;
     text-decoration: none;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 /* ✅ 글쓰기 페이지 스타일 */
@@ -114,50 +117,17 @@ input[type="text"], textarea {
     box-sizing: border-box;
 }
 
-/* ✅ 버튼 그룹 컨테이너 */
-.button-group {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-/* ✅ 등록 버튼 */
-.save-btn {
-    width: 150px;
-    height: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #000;
-    background-color: #e0e0e0;
-    border: 1px solid #f1f1f1;
-    text-align: center;
-    cursor: pointer;
-}
-
-.cancel-btn {
-    width: 150px;
-    height: 50px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #666;
-    background-color: #fff;
-    border: 1px solid #f1f1f1;
-    text-align: center;
-    cursor: pointer;
-    line-height: 50px; /* 버튼 높이와 동일하게 설정 */
-}
-
-
-/* ✅ 글쓰기 버튼 스타일 */
-.write-button {
+/* ✅ 버튼 그룹 컨테이너 (글쓰기, 수정, 삭제 버튼) */
+.write-button, .button-group {
     display: flex;
     justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
-    margin-top: 20px; /* 테이블과 버튼 간격 */
+    gap: 10px;
+    margin-top: 20px;
     padding-right: 20px; /* 오른쪽 여백 */
-    position: relative; /* 화면에 고정되지 않도록 설정 */
+    position: relative;
 }
 
-
+/* ✅ 글쓰기 버튼 스타일 */
 .write-button a {
     display: flex;
     justify-content: center;
@@ -170,16 +140,4 @@ input[type="text"], textarea {
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
-}
-
-/* ✅ 반응형 디자인 */
-@media (max-width: 768px) {
-    .content-container {
-        width: 95%;
-    }
-    .list-btn {
-        width: 180px;
-        height: 60px;
-        font-size: 18px;
-    }
 }

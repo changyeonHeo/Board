@@ -28,24 +28,26 @@
         </tbody>
     </table>
 </div>
-<!-- 📌 페이지네이션 UI -->
+<!-- 📌 페이지네이션 -->
 <div class="pagination">
     <c:if test="${totalPages > 1}">
-        <!-- ◀ 이전 페이지 버튼 -->
         <c:if test="${currentPage > 1}">
-            <a href="?page=${currentPage - 1}&size=5" class="prev-btn">◀</a>
+            <a href="/?page=${currentPage - 1}">&laquo; 이전</a>
         </c:if>
+    </c:if>
 
-        <c:forEach var="i" begin="1" end="${totalPages}">
-            <a href="?page=${i}&size=5" class="${currentPage == i ? 'active' : ''}">${i}</a>
-        </c:forEach>
+    <!-- ✅ 항상 1페이지가 표시되도록 설정 -->
+    <c:forEach var="i" begin="1" end="${totalPages}">
+        <a href="/?page=${i}" class="${currentPage == i ? 'active' : ''}">${i}</a>
+    </c:forEach>
 
-        <!-- ▶ 다음 페이지 버튼 -->
+    <c:if test="${totalPages > 1}">
         <c:if test="${currentPage < totalPages}">
-            <a href="?page=${currentPage + 1}&size=5" class="next-btn">▶</a>
+            <a href="/?page=${currentPage + 1}">다음 &raquo;</a>
         </c:if>
     </c:if>
 </div>
+
 
 <!-- ✅ 글쓰기 버튼 (테이블 아래 위치) -->
 <div class="write-button">
