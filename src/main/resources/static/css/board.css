@@ -44,7 +44,7 @@ body {
     min-height: 300px;
 }
 
-/* ✅ 버튼 그룹 컨테이너 (목록, 수정, 삭제 버튼) */
+/* ✅ 게시글 상세 페이지 버튼 그룹 (목록, 수정, 삭제) */
 .button-group {
     display: flex;
     justify-content: flex-end;
@@ -52,7 +52,7 @@ body {
     margin-top: 30px;
 }
 
-/* ✅ 목록보기, 수정하기, 삭제하기 버튼 스타일 */
+/* ✅ 버튼 공통 스타일 */
 .list-btn, .edit-btn, .delete-btn {
     display: flex;
     justify-content: center;
@@ -117,27 +117,36 @@ input[type="text"], textarea {
     box-sizing: border-box;
 }
 
-/* ✅ 버튼 그룹 컨테이너 (글쓰기, 수정, 삭제 버튼) */
-.write-button, .button-group {
+/* ✅ 글쓰기 페이지 버튼 그룹 (등록, 취소 버튼) */
+.write-button-group {
     display: flex;
     justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
     gap: 10px;
     margin-top: 20px;
-    padding-right: 20px; /* 오른쪽 여백 */
-    position: relative;
+    padding-right: 20px;
 }
 
-/* ✅ 글쓰기 버튼 스타일 */
-.write-button a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 210px;
-    height: 70px;
-    border: 1px solid #ccc;
-    background-color: white;
-    color: #333;
-    font-size: 20px;
+/* ✅ 등록, 취소 버튼 스타일 */
+.save-btn, .cancel-btn {
+    width: 150px;
+    height: 50px;
+    font-size: 15px;
     font-weight: bold;
-    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
 }
+
+.save-btn {
+    color: #000;
+    background-color: #e0e0e0;
+    border: 1px solid #f1f1f1;
+}
+
+.cancel-btn {
+    color: #666;
+    background-color: #fff;
+    border: 1px solid #f1f1f1;
+    line-height: 50px; /* 버튼 높이와 동일하게 설정 */
+}
+
+
