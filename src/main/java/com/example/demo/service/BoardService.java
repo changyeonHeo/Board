@@ -73,5 +73,15 @@ public class BoardService {
         board.setContent(content);
         boardRepository.save(board); // 기존 게시글을 수정하여 저장
     }
+    public BoardEntity getPreviousPost(Long currentId) {
+        return boardRepository.findTopByBnumLessThanOrderByBnumDesc(currentId).orElse(null);
+    }
+
+    public BoardEntity getNextPost(Long currentId) {
+        return boardRepository.findTopByBnumGreaterThanOrderByBnumAsc(currentId).orElse(null);
+    }
+
+
+
     
 }

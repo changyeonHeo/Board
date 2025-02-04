@@ -83,13 +83,22 @@ public class BoardController {
         return ResponseEntity.ok("글이 성공적으로 저장되었습니다.");
     }
 
-    // ✅ 게시글 상세보기
     @GetMapping("/board/{id}")
     public String boardDetail(@PathVariable Long id, Model model) {
-        BoardEntity board = boardService.getBoardById(id);
-        model.addAttribute("board", board);
-        return "board/board_content";
+        BoardEntity currentPost = boardService.getBoardById(id);
+        model.addAttribute("board", currentPost);
+
+        // 이전글과 다음글 가져오기
+        BoardEntity prevPost = boardService.getPreviousPost(id);
+        BoardEntity nextPost = boardService.getNextPost(id);
+        model.addAttribute("prevPost", prevPost);
+        model.addAttribute("nextPost", nextPost);
+
+        return "board/board_content"; // 게시글 상세보기 JSP로 이동
     }
+
+
+
 
     // ✅ 이미지 업로드
     @PostMapping("/api/uploadImage")

@@ -34,10 +34,12 @@
 
     <input type="hidden" id="writer" name="writer" value="${writer}">
 
-    <div class="button-group">
-        <button type="submit" class="save-btn">저장</button>
-        <a href="/" class="cancel-btn">취소</a>
-    </div>
+    <!-- ✅ 버튼 그룹 (등록 & 취소) -->
+<div class="write-button-group">
+    <button type="submit" class="save-btn">등록</button>
+    <a href="/" class="cancel-btn">취소</a>
+</div>
+
 </form>
 
 

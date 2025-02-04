@@ -14,7 +14,7 @@ body {
     background: white;
     border: 1px solid #ddd;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    min-height: 70vh; /* 본문 영역의 최소 높이 설정 */
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
 }
@@ -45,11 +45,11 @@ body {
 }
 
 /* ✅ 게시글 상세 페이지 버튼 그룹 (목록, 수정, 삭제) */
-.button-group {
+.content-button-group {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 200px; /* ✨ board_content.jsp에만 적용 */
 }
 
 /* ✅ 버튼 공통 스타일 */
@@ -78,7 +78,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-height: 100vh; /* 화면 전체 높이 */
+    min-height: 100vh;
 }
 
 /* ✅ 페이지 제목 스타일 */
@@ -98,8 +98,8 @@ body {
 }
 
 textarea {
-    height: 400px; /* 글쓰기 칸 높이 고정 */
-    resize: none; /* 크기 조정 비활성화 */
+    height: 400px;
+    resize: none;
 }
 
 label {
@@ -120,9 +120,9 @@ input[type="text"], textarea {
 /* ✅ 글쓰기 페이지 버튼 그룹 (등록, 취소 버튼) */
 .write-button-group {
     display: flex;
-    justify-content: flex-end; /* 버튼을 오른쪽 정렬 */
+    justify-content: flex-end;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 20px; /* ✨ 폼 바로 아래 위치하도록 수정 */
     padding-right: 20px;
 }
 
@@ -146,7 +146,89 @@ input[type="text"], textarea {
     color: #666;
     background-color: #fff;
     border: 1px solid #f1f1f1;
-    line-height: 50px; /* 버튼 높이와 동일하게 설정 */
+    line-height: 50px;
+}
+
+/* ✅ 이전/다음글 테이블 스타일 */
+.prev-next-table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 겹침 제거 */
+    margin-top: 20px;
+    font-size: 16px;
+    border: 1px solid #ddd; /* 테이블 외곽 테두리 */
+    table-layout: fixed; /* 열 크기 고정 */
+}
+
+.prev-next-table tr {
+    border-bottom: 1px solid #ddd; /* 행 간 테두리 */
+}
+
+.arrow-cell {
+    width: 50px; /* 화살표 셀 넓이 증가 */
+    text-align: center;
+    vertical-align: middle;
+    border-right: 1px solid #ddd; /* 열 간 테두리 */
+}
+
+.label-cell {
+    width: 120px; /* "이전글", "다음글" 셀 넓이 증가 */
+    text-align: left;
+    vertical-align: middle;
+    color: #555;
+    border-right: 1px solid #ddd; /* 열 간 테두리 */
+    padding: 10px; /* 텍스트와 테두리 간격 */
+}
+
+.title-cell {
+    text-align: left;
+    vertical-align: middle;
+    padding: 10px; /* 텍스트와 테두리 간격 */
+    word-wrap: break-word; /* 긴 제목 줄바꿈 */
+}
+
+.prev-next-link {
+    text-decoration: none;
+    color: #242927;
+    font-weight: 500;
+}
+
+.prev-next-link:hover {
+    text-decoration: underline;
+}
+.comment-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.comment-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-content {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.comment-meta {
+    font-size: 12px;
+    color: #888;
+}
+
+.reply-btn {
+    font-size: 12px;
+    color: #007bff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.reply-btn:hover {
+    text-decoration: underline;
 }
 
 
