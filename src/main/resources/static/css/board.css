@@ -230,5 +230,33 @@ input[type="text"], textarea {
 .reply-btn:hover {
     text-decoration: underline;
 }
+/* ✅ 댓글 입력창 */
+.comment {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+}
 
+/* ✅ 대댓글 입력창 스타일 */
+.reply-section {
+    margin-top: 10px;
+    display: none; /* 기본적으로 숨김 */
+}
 
+.reply-input {
+    width: 80%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.reply-btn {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
