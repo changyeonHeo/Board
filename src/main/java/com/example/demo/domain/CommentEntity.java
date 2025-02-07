@@ -1,5 +1,6 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,45 +8,30 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @Getter
 @Setter
-@Entity
-@Table(name = "comments")
-@NoArgsConstructor // ✅ JPA를 위한 기본 생성자 추가
+@NoArgsConstructor
 @AllArgsConstructor
-@Builder // ✅ @Builder 사용 시 @AllArgsConstructor 필요
+@Builder
 public class CommentEntity {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    private Long bnum;
+    private String content;
+    private String writer;
+    private LocalDateTime createdDate;
 
-    @Column(nullable = false)
-    private Long bnum; // 게시글 번호
-
-    @Column(nullable = false, length = 500)
-    private String content; // 댓글 내용
-
-    @Column(nullable = false)
-    private String writer; // 작성자
-
-    @Column(nullable = false)
-    private LocalDateTime createdDate; // 작성일
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    // ✅ 부모 댓글 (ID만 보이고, 나머지 필드는 JSON에서 제외)
+    @ManyToOne
     @JoinColumn(name = "parent_id")
-    private CommentEntity parent; // 부모 댓글 (대댓글을 위해)
+    @JsonIgnoreProperties({"parent", "replies"}) // 🔥 parent의 내부 필드 제외 (무한 루프 방지)
+    private CommentEntity parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default // ✅ 초기화 필요 (NPE 방지)
+    // ✅ 대댓글 리스트
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<CommentEntity> replies = new ArrayList<>();
-
-    // ✅ 생성자 추가
-    public CommentEntity(Long bnum, String content, String writer, LocalDateTime createdDate, CommentEntity parent) {
-        this.bnum = bnum;
-        this.content = content;
-        this.writer = writer;
-        this.createdDate = createdDate;
-        this.parent = parent;
-    }
 }

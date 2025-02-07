@@ -6,7 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentRequest {
-    private Long parentId; // 대댓글인 경우 부모 댓글 ID
-    private Long bnum; // 게시글 번호
-    private String content; // 댓글 내용
+    private Long bnum;
+    private String content;
+    private String writer;
+    private Long parentId = 0L; // 기본값 설정 (null 대신 0L로 처리)
+
+    public boolean isReply() {
+        return parentId != null && parentId > 0;
+    }
 }
+
