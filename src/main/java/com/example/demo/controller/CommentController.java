@@ -17,7 +17,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    // ✅ 댓글 작성 (로그인한 사용자 자동 설정)
+    // ✅ 댓글 작성
     @PostMapping
     public CommentEntity createComment(@RequestBody CommentRequest request) {
         if (request.getBnum() == null) {
@@ -25,17 +25,16 @@ public class CommentController {
         }
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // ✅ 현재 로그인한 사용자
+        String currentUsername = authentication.getName();
 
         return commentService.createComment(request.getBnum(), request.getContent(), currentUsername);
     }
-
 
     // ✅ 대댓글 작성
     @PostMapping("/{commentId}/reply")
     public CommentEntity createReply(@PathVariable Long commentId, @RequestBody CommentRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName(); // ✅ 현재 로그인한 사용자
+        String currentUsername = authentication.getName();
 
         return commentService.createReply(commentId, request.getContent(), currentUsername);
     }
@@ -44,5 +43,11 @@ public class CommentController {
     @GetMapping
     public List<CommentEntity> getComments(@RequestParam Long bnum) {
         return commentService.getCommentsByBnum(bnum);
+    }
+
+    // ✅ 댓글 삭제 (대댓글 포함)
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable Long commentId) {
+        commentService.deleteComment(commentId);
     }
 }

@@ -130,3 +130,40 @@ $(document).ready(function () {
     // ✅ 페이지 로드 시 댓글 불러오기
     loadComments();
 });
+$(document).ready(function() {
+    console.log("🔹 페이지 로드됨 - 버튼 이벤트 등록 확인");
+
+    // ✅ 댓글 삭제 이벤트 등록
+    $(".delete-comment-btn").each(function() {
+        console.log("✅ 삭제 버튼 발견 - ID:", $(this).data("comment-id"));
+    });
+
+    $(".delete-comment-btn").on("click", function() {
+        var commentId = $(this).data("comment-id");
+        deleteComment(commentId);
+    });
+
+    // ✅ 대댓글 삭제 이벤트 등록
+    $(".delete-reply-btn").on("click", function() {
+        var replyId = $(this).data("reply-id");
+        deleteComment(replyId);
+    });
+});
+
+// ✅ 댓글 삭제 함수
+function deleteComment(commentId) {
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+        $.ajax({
+            url: "/api/comments/" + commentId,
+            type: "DELETE",
+            success: function() {
+                alert("댓글이 삭제되었습니다.");
+                location.reload();
+            },
+            error: function(xhr) {
+                alert("삭제 실패: " + xhr.responseText);
+            }
+        });
+    }
+}
+

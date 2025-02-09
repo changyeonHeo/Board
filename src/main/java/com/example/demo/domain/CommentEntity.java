@@ -25,13 +25,23 @@ public class CommentEntity {
     private String writer;
     private LocalDateTime createdDate;
 
-    // ✅ 부모 댓글 (ID만 보이고, 나머지 필드는 JSON에서 제외)
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    @JsonIgnoreProperties({"parent", "replies"}) // 🔥 parent의 내부 필드 제외 (무한 루프 방지)
+    @JsonIgnoreProperties({"parent", "replies"})
     private CommentEntity parent;
 
-    // ✅ 대댓글 리스트
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<CommentEntity> replies = new ArrayList<>();
+
+    // ✅ `Boolean`으로 변경 (null 허용)
+    @Column(nullable = false)
+    private Boolean isDeleted = false;  
+
+    public boolean getIsDeleted() {
+        return Boolean.TRUE.equals(isDeleted);  // ✅ null 방지
+    }
+
+    public void setIsDeleted(Boolean deleted) {
+        this.isDeleted = deleted;
+    }
 }
