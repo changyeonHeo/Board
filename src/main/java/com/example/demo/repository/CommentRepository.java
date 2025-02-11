@@ -10,5 +10,5 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
     // ✅ createdDate 기준 내림차순 정렬 (최신 댓글이 위로)
-    List<CommentEntity> findByBnumAndParentIsNullOrderByCreatedDateDesc(Long bnum);
+    List<CommentEntity> findByBnumAndParentIsNullOrderByCreatedDateAsc(Long bnum);
 }

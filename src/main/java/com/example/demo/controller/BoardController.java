@@ -10,8 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.domain.BoardEntity;
+import com.example.demo.domain.CommentEntity;
 import com.example.demo.dto.BoardRequest;
 import com.example.demo.service.BoardService;
+import com.example.demo.service.CommentService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/")
     public String boardList(Model model, 
@@ -85,16 +88,27 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public String boardDetail(@PathVariable Long id, Model model) {
-        BoardEntity currentPost = boardService.getBoardById(id);
+    	BoardEntity currentPost = boardService.getBoardById(id);
         model.addAttribute("board", currentPost);
 
-        // 이전글과 다음글 가져오기
+        // ✅ 이전글 & 다음글 가져오기
         BoardEntity prevPost = boardService.getPreviousPost(id);
         BoardEntity nextPost = boardService.getNextPost(id);
         model.addAttribute("prevPost", prevPost);
         model.addAttribute("nextPost", nextPost);
 
-        return "board/board_content"; // 게시글 상세보기 JSP로 이동
+        // ✅ 댓글 리스트 가져오기
+        List<CommentEntity> comments = commentService.getCommentsByBnum(id);
+        model.addAttribute("comments", comments);
+        
+        // 🔥 콘솔 로그 (디버깅용)
+        System.out.println("📌 게시글 ID: " + id);
+        System.out.println("📌 댓글 개수: " + comments.size());
+        for (CommentEntity comment : comments) {
+            System.out.println("📌 Comment ID: " + comment.getId() + ", isDeleted: " + comment.getIsDeleted());
+        }
+
+        return "board/board_content";
     }
 
 

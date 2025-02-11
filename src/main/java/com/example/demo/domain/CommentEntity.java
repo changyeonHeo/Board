@@ -1,12 +1,14 @@
 package com.example.demo.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Getter
@@ -15,33 +17,28 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class CommentEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     private Long bnum;
     private String content;
     private String writer;
     private LocalDateTime createdDate;
 
+    private Boolean isDeleted = false; // ✅ 기본값 false 설정
+
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    @JsonIgnoreProperties({"parent", "replies"})
+    @JsonIgnore
     private CommentEntity parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<CommentEntity> replies = new ArrayList<>();
+    private List<CommentEntity> replies;
 
-    // ✅ `Boolean`으로 변경 (null 허용)
-    @Column(nullable = false)
-    private Boolean isDeleted = false;  
-
-    public boolean getIsDeleted() {
-        return Boolean.TRUE.equals(isDeleted);  // ✅ null 방지
-    }
-
-    public void setIsDeleted(Boolean deleted) {
-        this.isDeleted = deleted;
+    // ✅ 🔹 LocalDateTime → Date 변환용 메서드 추가
+    public Date getFormattedDate() {
+        return Date.from(createdDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

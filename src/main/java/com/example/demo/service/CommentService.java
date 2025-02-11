@@ -45,7 +45,7 @@ public class CommentService {
 
     // ✅ 게시글의 댓글 및 대댓글 조회
     public List<CommentEntity> getCommentsByBnum(Long bnum) {
-        List<CommentEntity> comments = commentRepository.findByBnumAndParentIsNullOrderByCreatedDateDesc(bnum);
+        List<CommentEntity> comments = commentRepository.findByBnumAndParentIsNullOrderByCreatedDateAsc(bnum);
 
         // ✅ `null` 값 체크 후 기본값 설정
         for (CommentEntity comment : comments) {
@@ -62,20 +62,18 @@ public class CommentService {
         CommentEntity comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
 
-        if (comment.getParent() == null) { 
+        if (comment.getParent() == null) {
             // ✅ 부모 댓글 삭제 시, 대댓글도 함께 삭제
             List<CommentEntity> replies = comment.getReplies();
-            for (CommentEntity reply : replies) {
-                reply.setIsDeleted(true);  // 🔥 논리적 삭제
-                reply.setContent("삭제된 댓글입니다.");
-                commentRepository.save(reply);
-            }
-            commentRepository.delete(comment);
+            commentRepository.deleteAll(replies);  // ✅ 대댓글 실제 삭제
+            commentRepository.delete(comment);  // ✅ 부모 댓글 삭제
         } else {
-            // ✅ 대댓글 삭제 시 "삭제된 댓글입니다"로 변경
-            comment.setIsDeleted(true);  // 🔥 논리적 삭제
+            // ✅ 대댓글 삭제 시, '삭제된 댓글입니다.'로 변경
+            comment.setIsDeleted(true);
             comment.setContent("삭제된 댓글입니다.");
-            commentRepository.save(comment);
+            commentRepository.save(comment);  // ✅ 변경된 데이터 저장
         }
     }
+
+
 }
