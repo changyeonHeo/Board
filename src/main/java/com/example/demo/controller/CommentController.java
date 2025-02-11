@@ -55,7 +55,13 @@ public class CommentController {
 
     // ✅ 댓글 삭제 (대댓글 포함)
     @DeleteMapping("/{commentId}")
-    public void deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        // ✅ 본인 댓글인지 확인 후 삭제
+        commentService.deleteComment(commentId, currentUsername);
+        return ResponseEntity.ok("댓글이 삭제되었습니다.");
     }
+
 }

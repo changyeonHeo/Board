@@ -54,17 +54,18 @@ public class MemberApiController {
     @GetMapping("/api/validateId")
     public ResponseEntity<Map<String, String>> validateId(@RequestParam String memberId) {
         Map<String, String> response = new HashMap<>();
-        
+
         if (memberService.isIdExist(memberId)) {
             response.put("status", "EXIST");
             response.put("message", "이미 존재하는 아이디입니다.");
-            return ResponseEntity.status(409).body(response);  // 409 Conflict
+            return ResponseEntity.ok(response);  // ✅ 409 대신 200 OK로 변경했는지 확인!!
         }
-        
+
         response.put("status", "AVAILABLE");
         response.put("message", "사용 가능한 아이디입니다.");
-        return ResponseEntity.ok(response);  // 200 OK
+        return ResponseEntity.ok(response);
     }
+
 
 
     // ✅ 이메일 중복 확인 API

@@ -20,39 +20,40 @@ $(document).ready(function () {
     }
 
     // ✅ 아이디 중복 확인 AJAX
-    $("input[name='memberId']").on("input", function () {
-        const memberId = $(this).val();
-        const regex = /^[a-zA-Z0-9]{4,12}$/;
-        const messageElem = $(this).siblings(".message");
+$("input[name='memberId']").on("input", function () {
+    const memberId = $(this).val();
+    const regex = /^[a-zA-Z0-9]{4,12}$/;
+    const messageElem = $(this).siblings(".message");
 
-        if (!regex.test(memberId)) {
-            messageElem.text("아이디는 영어와 숫자로 4~12자만 가능합니다.").addClass("error").removeClass("success");
+    if (!regex.test(memberId)) {
+        messageElem.text("아이디는 영어와 숫자로 4~12자만 가능합니다.").addClass("error").removeClass("success");
+        validationState.memberId = false;
+        enableSubmit();
+        return;
+    }
+
+    $.ajax({
+        url: "/api/validateId",
+        type: "GET",
+        data: { memberId },
+        success: function (data) {
+            if (data.status === "AVAILABLE") {
+                messageElem.text("사용 가능한 아이디입니다.").addClass("success").removeClass("error");
+                validationState.memberId = true;
+            } else if (data.status === "EXIST") {  // ✅ 409 상태가 아닌 경우도 체크
+                messageElem.text("이미 존재하는 아이디입니다.").addClass("error").removeClass("success");
+                validationState.memberId = false;
+            }
+            enableSubmit();
+        },
+        error: function (xhr) {
+            messageElem.text("서버 오류가 발생했습니다. 다시 시도해주세요.").addClass("error").removeClass("success");
             validationState.memberId = false;
             enableSubmit();
-            return;
-        }
-
-        $.ajax({
-            url: "/api/validateId",
-            type: "GET",
-            data: { memberId },
-            success: function (data) {
-                if (data.status === "AVAILABLE") {
-                    messageElem.text("사용 가능한 아이디입니다.").addClass("success").removeClass("error");
-                    validationState.memberId = true;
-                } else {
-                    messageElem.text("이미 존재하는 아이디입니다.").addClass("error").removeClass("success");
-                    validationState.memberId = false;
-                }
-                enableSubmit();
-            },
-            error: function () {
-                messageElem.text("아이디 확인 중 오류가 발생했습니다.").addClass("error").removeClass("success");
-                validationState.memberId = false;
-                enableSubmit();
-            },
-        });
+        },
     });
+});
+
 
     // ✅ 이름 유효성 검사 (중복 확인 없음)
     $("input[name='memberName']").on("input", function () {

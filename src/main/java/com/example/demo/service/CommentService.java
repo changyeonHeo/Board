@@ -58,22 +58,27 @@ public class CommentService {
 
     // ✅ 댓글 삭제 (대댓글 포함)
     @Transactional
-    public void deleteComment(Long commentId) {
+    public void deleteComment(Long commentId, String username) {
         CommentEntity comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글이 존재하지 않습니다."));
 
+        // 🔥 댓글 작성자와 로그인한 사용자가 일치하는지 확인
+        if (!comment.getWriter().equals(username)) {
+            throw new IllegalArgumentException("본인이 작성한 댓글만 삭제할 수 있습니다.");
+        }
+
         if (comment.getParent() == null) {
             // ✅ 부모 댓글 삭제 시, 대댓글도 함께 삭제
-            List<CommentEntity> replies = comment.getReplies();
-            commentRepository.deleteAll(replies);  // ✅ 대댓글 실제 삭제
-            commentRepository.delete(comment);  // ✅ 부모 댓글 삭제
+            commentRepository.delete(comment);
         } else {
-            // ✅ 대댓글 삭제 시, '삭제된 댓글입니다.'로 변경
+            // ✅ 대댓글 삭제 시 "삭제된 댓글입니다"로 변경
             comment.setIsDeleted(true);
             comment.setContent("삭제된 댓글입니다.");
-            commentRepository.save(comment);  // ✅ 변경된 데이터 저장
+            commentRepository.save(comment);
         }
     }
+
+
 
 
 }
